@@ -1,0 +1,28 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Фото бялуу захиалга",
+    "description": "",
+    "home_page_url": "https://byaluu.github.io",
+    "feed_url": "https://byaluu.github.io/feed.json",
+    "user_comment": "",
+    "icon": "https://byaluu.github.io/media/website/Profile-2.jpg",
+    "author": {
+        "name": "86201430"
+    },
+    "items": [
+        {
+            "id": "https://byaluu.github.io/foto-byaluu-zahialga.html",
+            "url": "https://byaluu.github.io/foto-byaluu-zahialga.html",
+            "title": "Фото бялуу захиалга",
+            "summary": "Test Post zuragnuud",
+            "content_html": "<p>Test Post<br>zuragnuud</p>\n<div class=\"gallery-wrapper\"><div class=\"gallery\" data-is-empty=\"false\" data-translation=\"Add images\" data-columns=\"3\">\n<figure class=\"gallery__item\"><a href=\"https://byaluu.github.io/media/posts/1/gallery/1.jpg\" data-size=\"1440x1440\"><img loading=\"lazy\" src=\"https://byaluu.github.io/media/posts/1/gallery/1-thumbnail.jpg\" alt=\"\" width=\"768\" height=\"768\"></a></figure>\n<figure class=\"gallery__item\"><a href=\"https://byaluu.github.io/media/posts/1/gallery/2.jpg\" data-size=\"1440x1440\"><img loading=\"lazy\" src=\"https://byaluu.github.io/media/posts/1/gallery/2-thumbnail.jpg\" alt=\"\" width=\"768\" height=\"768\"></a></figure>\n<figure class=\"gallery__item\"><a href=\"https://byaluu.github.io/media/posts/1/gallery/3.jpg\" data-size=\"1440x1440\"><img loading=\"lazy\" src=\"https://byaluu.github.io/media/posts/1/gallery/3-thumbnail.jpg\" alt=\"\" width=\"768\" height=\"768\"></a></figure>\n<figure class=\"gallery__item\"><a href=\"https://byaluu.github.io/media/posts/1/gallery/4.jpg\" data-size=\"1440x1440\"><img loading=\"lazy\" src=\"https://byaluu.github.io/media/posts/1/gallery/4-thumbnail.jpg\" alt=\"\" width=\"768\" height=\"768\"></a></figure>\n</div></div>",
+            "author": {
+                "name": "86201430"
+            },
+            "tags": [
+            ],
+            "date_published": "2026-02-15T00:00:17+08:00",
+            "date_modified": "2026-02-15T00:00:17+08:00"
+        }
+    ]
+}

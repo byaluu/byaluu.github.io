@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <title>Фото бялуу захиалга</title>
+    <link href="https://byaluu.github.io/feed.xml" rel="self" />
+    <link href="https://byaluu.github.io" />
+    <updated>2026-02-15T00:00:17+08:00</updated>
+    <author>
+        <name>86201430</name>
+    </author>
+    <id>https://byaluu.github.io</id>
+
+    <entry>
+        <title>Фото бялуу захиалга</title>
+        <author>
+            <name>86201430</name>
+        </author>
+        <link href="https://byaluu.github.io/foto-byaluu-zahialga.html"/>
+        <id>https://byaluu.github.io/foto-byaluu-zahialga.html</id>
+
+        <updated>2026-02-15T00:00:17+08:00</updated>
+            <summary type="html">
+                <![CDATA[
+                    Test Post zuragnuud
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>Test Post<br>zuragnuud</p>
+<div class="gallery-wrapper"><div class="gallery" data-is-empty="false" data-translation="Add images" data-columns="3">
+<figure class="gallery__item"><a href="https://byaluu.github.io/media/posts/1/gallery/1.jpg" data-size="1440x1440"><img loading="lazy" src="https://byaluu.github.io/media/posts/1/gallery/1-thumbnail.jpg" alt="" width="768" height="768"></a></figure>
+<figure class="gallery__item"><a href="https://byaluu.github.io/media/posts/1/gallery/2.jpg" data-size="1440x1440"><img loading="lazy" src="https://byaluu.github.io/media/posts/1/gallery/2-thumbnail.jpg" alt="" width="768" height="768"></a></figure>
+<figure class="gallery__item"><a href="https://byaluu.github.io/media/posts/1/gallery/3.jpg" data-size="1440x1440"><img loading="lazy" src="https://byaluu.github.io/media/posts/1/gallery/3-thumbnail.jpg" alt="" width="768" height="768"></a></figure>
+<figure class="gallery__item"><a href="https://byaluu.github.io/media/posts/1/gallery/4.jpg" data-size="1440x1440"><img loading="lazy" src="https://byaluu.github.io/media/posts/1/gallery/4-thumbnail.jpg" alt="" width="768" height="768"></a></figure>
+</div></div>
+            ]]>
+        </content>
+    </entry>
+</feed>
