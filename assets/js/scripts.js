@@ -1,29 +1,28 @@
-// Sticky menu
-let newScrollPosition = 0;
-let lastScrollPosition;
-const header = document.getElementById("js-top");
+// Sticky header position on page scrolling up
+const header = document.querySelector('.js-header');
+const stickyClass = 'sticky';
+let lastScrollTop = 0;
+let isWaiting = false;
 
 window.addEventListener('scroll', () => {
-    lastScrollPosition = window.scrollY;
+    if (!isWaiting) {
+        window.requestAnimationFrame(() => {
+            let currentScroll = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
 
-    // Scrolling down
-    if (newScrollPosition < lastScrollPosition && lastScrollPosition > 184) {
-        header.classList.remove("is-visible");
-        header.classList.add("is-hidden");
-    // Scrolling up
-    } else if (newScrollPosition > lastScrollPosition) {
-        header.classList.remove("is-hidden");
-        header.classList.add("is-visible");
+            if (currentScroll > lastScrollTop) {
+                header.classList.remove(stickyClass);
+            } else if (currentScroll < lastScrollTop && currentScroll > 0) {
+                header.classList.add(stickyClass);
+            } else if (currentScroll <= 0) {
+                header.classList.remove(stickyClass);
+            }
+
+            lastScrollTop = currentScroll;
+            isWaiting = false;
+        });
+        isWaiting = true;
     }
-
-    if (lastScrollPosition < 184) {
-        header.classList.remove("is-visible");
-    }
-
-    newScrollPosition = lastScrollPosition;
-});
-
-
+}, false);
 
 // Dropdown menu
 (function (menuConfig) {
@@ -65,12 +64,12 @@ window.addEventListener('scroll', () => {
 
     var config = {};
 
-    Object.keys(defaultConfig).forEach(function(key) {
+    Object.keys(defaultConfig).forEach(function (key) {
         config[key] = defaultConfig[key];
     });
 
     if (typeof menuConfig === 'object') {
-        Object.keys(menuConfig).forEach(function(key) {
+        Object.keys(menuConfig).forEach(function (key) {
             config[key] = menuConfig[key];
         });
     }
@@ -78,7 +77,7 @@ window.addEventListener('scroll', () => {
     /**
      * Menu initializer
      */
-    function init () {
+    function init() {
         if (!document.querySelectorAll(config.wrapperSelector).length) {
             return;
         }
@@ -101,7 +100,7 @@ window.addEventListener('scroll', () => {
     /**
      * Function responsible for the submenu positions
      */
-    function initSubmenuPositions () {
+    function initSubmenuPositions() {
         var submenuParents = document.querySelectorAll(config.wrapperSelector + ' .' + config.parentItemClass);
 
         for (var i = 0; i < submenuParents.length; i++) {
@@ -178,7 +177,7 @@ window.addEventListener('scroll', () => {
     /**
      * Function used to init mobile menu - overlay mode
      */
-    function initMobileMenuOverlay () {
+    function initMobileMenuOverlay() {
         var menuWrapper = document.createElement('div');
         menuWrapper.classList.add(config.mobileMenuOverlayClass);
         menuWrapper.classList.add(config.hiddenElementClass);
@@ -216,13 +215,13 @@ window.addEventListener('scroll', () => {
                     relatedContainer.classList.remove(config.relatedContainerForOverlayMenuClass);
                 }
             }
-        });   
+        });
     }
 
     /**
      * Function used to init mobile menu - sidebar mode
      */
-    function initMobileMenuSidebar () {
+    function initMobileMenuSidebar() {
         // Create menu structure
         var menuWrapper = document.createElement('div');
         menuWrapper.classList.add(config.mobileMenuSidebarClass);
@@ -281,7 +280,7 @@ window.addEventListener('scroll', () => {
     /**
      * Set aria-hidden="false" for submenus
      */
-    function setAriaForSubmenus (menuWrapper) {
+    function setAriaForSubmenus(menuWrapper) {
         var submenus = menuWrapper.querySelectorAll(config.submenuSelector);
 
         for (var i = 0; i < submenus.length; i++) {
@@ -292,7 +291,7 @@ window.addEventListener('scroll', () => {
     /**
      * Wrap all submenus into div wrappers
      */
-    function wrapSubmenusIntoContainer (menuWrapper) {
+    function wrapSubmenusIntoContainer(menuWrapper) {
         var submenus = menuWrapper.querySelectorAll(config.submenuSelector);
 
         for (var i = 0; i < submenus.length; i++) {
@@ -306,7 +305,7 @@ window.addEventListener('scroll', () => {
     /**
      * Initialize submenu toggle events
      */
-    function initToggleSubmenu (menuWrapper) {
+    function initToggleSubmenu(menuWrapper) {
         // Init parent menu item events
         var parents = menuWrapper.querySelectorAll('.' + config.parentItemClass);
 
@@ -318,9 +317,9 @@ window.addEventListener('scroll', () => {
                 var content = submenu.firstElementChild;
 
                 if (submenu.classList.contains(config.openedMenuClass)) {
-                    var height = content.clientHeight;   
+                    var height = content.clientHeight;
                     submenu.style.height = height + 'px';
-                    
+
                     setTimeout(function () {
                         submenu.style.height = '0px';
                     }, 0);
@@ -333,10 +332,10 @@ window.addEventListener('scroll', () => {
                     content.setAttribute('aria-hidden', true);
                     content.parentNode.firstElementChild.setAttribute('aria-expanded', false);
                 } else {
-                    var height = content.clientHeight;   
+                    var height = content.clientHeight;
                     submenu.classList.add(config.openedMenuClass);
                     submenu.style.height = '0px';
-                    
+
                     setTimeout(function () {
                         submenu.style.height = height + 'px';
                     }, 0);
@@ -378,7 +377,7 @@ window.addEventListener('scroll', () => {
     /**
      * Set aria-* attributes according to the current activity state
      */
-    function initAriaAttributes () {
+    function initAriaAttributes() {
         var allAriaElements = document.querySelectorAll(config.wrapperSelector + ' ' + '*[aria-hidden]');
 
         for (var i = 0; i < allAriaElements.length; i++) {
@@ -400,7 +399,7 @@ window.addEventListener('scroll', () => {
     /**
      * Close menu on click link
      */
-    function initClosingMenuOnClickLink () {
+    function initClosingMenuOnClickLink() {
         var links = document.querySelectorAll(config.menuSelector + ' a');
 
         for (var i = 0; i < links.length; i++) {
@@ -417,7 +416,7 @@ window.addEventListener('scroll', () => {
     /**
      * Close menu
      */
-    function closeMenu (clickedLink, forceClose) {
+    function closeMenu(clickedLink, forceClose) {
         if (forceClose === false) {
             if (clickedLink.parentNode.classList.contains(config.parentItemClass)) {
                 return;
@@ -454,27 +453,34 @@ window.addEventListener('scroll', () => {
     init();
 })(window.publiiThemeMenuConfig);
 
-
 // Load search input area
-const searchButton = document.querySelector(".js-search-btn");
-const searchOverlay = document.querySelector(".js-search-overlay");
-const searchClose = document.querySelector(".js-search-close");
-const searchInput = document.querySelector("[type='search']");
+const searchButton = document.querySelector('.js-search-btn');
+const searchOverlay = document.querySelector('.js-search-overlay');
 
-if (searchButton && searchOverlay && searchClose) {
-    searchButton.addEventListener("click", () => {
-        searchOverlay.classList.add("expanded");
-        if (searchInput) {
+if (searchButton && searchOverlay) {
+    searchButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        searchOverlay.classList.toggle('expanded');
+
+        if (searchOverlay.classList.contains('expanded')) {
             setTimeout(() => {
-                searchInput.focus();
+                const element = searchOverlay.querySelector('input, button');
+                if (element) {
+                    element.focus();
+                }
             }, 60);
         }
     });
 
-    searchClose.addEventListener("click", () => {
-        searchOverlay.classList.remove("expanded");
+    searchOverlay.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+
+    document.body.addEventListener('click', () => {
+        searchOverlay.classList.remove('expanded');
     });
 }
+
 
 // Share buttons pop-up
 (function () {
@@ -549,59 +555,67 @@ if (searchButton && searchOverlay && searchClose) {
 })();
 
 // Back to top
-const backToTopButton = document.getElementById("backToTop");
+document.addEventListener('DOMContentLoaded', () => {
+    const backToTopButton = document.getElementById('backToTop');
 
-if (backToTopButton) {
-    window.addEventListener('scroll', () => {
-        if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
-            backToTopButton.classList.add("is-visible");
-        } else {
-            backToTopButton.classList.remove("is-visible");
-        }
-    });
+    if (backToTopButton) {
+        const backToTopScrollFunction = () => {
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                backToTopButton.classList.add('is-visible');
+            } else {
+                backToTopButton.classList.remove('is-visible');
+            }
+        };
 
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
+        const backToTopFunction = () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
+
+        window.addEventListener('scroll', backToTopScrollFunction);
+        backToTopButton.addEventListener('click', backToTopFunction);
+    }
+});
 
 
 // Responsive embeds script
 (function () {
-	let wrappers = document.querySelectorAll('.post__video, .post__iframe');
+    let wrappers = document.querySelectorAll('.post__video, .post__iframe');
 
-	for (let i = 0; i < wrappers.length; i++) {
-		let embed = wrappers[i].querySelector('iframe, embed, video, object');
+    for (let i = 0; i < wrappers.length; i++) {
+        let embed = wrappers[i].querySelector('iframe, embed, video, object');
 
-		if (!embed) {
-			continue;
-		}
+        if (!embed) {
+            continue;
+        }
 
         if (embed.getAttribute('data-responsive') === 'false') {
             continue;
         }
 
-		let w = embed.getAttribute('width');
-		let h = embed.getAttribute('height');
-		let ratio = false;
+        let w = embed.getAttribute('width');
+        let h = embed.getAttribute('height');
+        let ratio = false;
 
-		if (!w || !h) {
-			continue;
-		}
-		
-		if (w.indexOf('%') > -1 && h.indexOf('%') > -1) { // percentage mode
-			w = parseFloat(w.replace('%', ''));
-			h = parseFloat(h.replace('%', ''));
-			ratio = h / w;
-		} else if (w.indexOf('%') === -1 && h.indexOf('%') === -1) { // pixels mode
-			w = parseInt(w, 10);
-			h = parseInt(h, 10);
-			ratio = h / w;
-		}
+        if (!w || !h) {
+            continue;
+        }
 
-		if (ratio !== false) {
-			let ratioValue = (ratio * 100) + '%';
-			wrappers[i].setAttribute('style', '--embed-aspect-ratio:' + ratioValue);
-		}
-	}
+        if (w.indexOf('%') > -1 && h.indexOf('%') > -1) { // percentage mode
+            w = parseFloat(w.replace('%', ''));
+            h = parseFloat(h.replace('%', ''));
+            ratio = h / w;
+        } else if (w.indexOf('%') === -1 && h.indexOf('%') === -1) { // pixels mode
+            w = parseInt(w, 10);
+            h = parseInt(h, 10);
+            ratio = h / w;
+        }
+
+        if (ratio !== false) {
+            let ratioValue = (ratio * 100) + '%';
+            wrappers[i].setAttribute('style', '--embed-aspect-ratio:' + ratioValue);
+        }
+    }
 })();
